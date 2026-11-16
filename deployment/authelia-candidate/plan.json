@@ -1,0 +1,21 @@
+{
+  "status": "design-only-not-deployed",
+  "issuer": null,
+  "proposedIssuerHostname": "auth-mcpml.bonorasw.com.br",
+  "resource": "https://mcpml.bonorasw.com.br/mcp",
+  "registration": "predefined-confidential-client",
+  "dcr": false,
+  "pkceRequired": true,
+  "pkceMethod": "S256",
+  "grantTypes": ["authorization_code", "refresh_token"],
+  "scope": "mcp:read",
+  "accessTokenLifetimeSeconds": 300,
+  "expectedJwtType": "at+jwt",
+  "expectedJwtAlgorithm": "RS256",
+  "subjectAllowlist": [],
+  "callbackAllowlist": [],
+  "reuseLinkedInSecrets": false,
+  "readOnly": true,
+  "publicApplicationListener": false,
+  "deployable": false
+}

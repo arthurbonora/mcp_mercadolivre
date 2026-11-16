@@ -1,0 +1,40 @@
+# NON-DEPLOYABLE CANDIDATE: merge only into a separately reviewed NEW instance.
+# No secret, account, issuer hostname, image version or callback is provisioned.
+identity_providers:
+  oidc:
+    # hmac_secret and jwks private signing key MUST be supplied via isolated
+    # approved secret storage. Do not copy LinkedIn configuration or keys.
+    lifespans:
+      access_token: '5m'
+      authorize_code: '1m'
+      id_token: '5m'
+      refresh_token: '1d'
+    scopes:
+      'mcp:read':
+        claims: []
+    authorization_policies:
+      mcpml_owner:
+        default_policy: 'deny'
+        rules:
+          - policy: 'two_factor'
+            subject: 'user:REPLACE_VERIFIED_OWNER_USERNAME'
+    clients:
+      - client_id: 'REPLACE_NEW_PREDEFINED_CHATGPT_CLIENT_ID'
+        client_name: 'ChatGPT MCP Mercado Livre read-only'
+        public: false
+        client_secret: 'REPLACE_WITH_NEW_HASHED_CLIENT_SECRET'
+        token_endpoint_auth_method: 'client_secret_basic'
+        redirect_uris:
+          - 'REPLACE_EXACT_URI_FROM_CHATGPT_MANAGEMENT'
+        audience:
+          - 'https://mcpml.bonorasw.com.br/mcp'
+        requested_audience_mode: 'explicit'
+        scopes: ['openid', 'offline_access', 'mcp:read']
+        grant_types: ['authorization_code', 'refresh_token']
+        response_types: ['code']
+        authorization_policy: 'mcpml_owner'
+        consent_mode: 'explicit'
+        require_pkce: true
+        pkce_challenge_method: 'S256'
+        access_token_signed_response_alg: 'RS256'
+        id_token_signed_response_alg: 'RS256'
